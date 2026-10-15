@@ -1,0 +1,38 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: var(--gl-green); margin-bottom: 10px;">Связь с методистом</h1>
+        <p style="color: #666; margin-bottom: 40px;">Выберите удобный мессенджер для связи. Наши специалисты всегда готовы помочь вам.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            
+            <a href="https://t.me/username_metodista" target="_blank" class="lesson-card" style="display: flex; align-items: center; padding: 20px; text-decoration: none; color: inherit; transition: transform 0.2s;">
+                <div style="width: 50px; height: 50px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; color: white; font-size: 24px;">✈️</div>
+                <div style="text-align: left;">
+                    <h3 style="margin: 0; color: var(--gl-blue);">Связаться через Telegram</h3>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: #888;">Быстрый ответ и чат-бот</p>
+                </div>
+            </a>
+
+            <a href="#" class="lesson-card" style="display: flex; align-items: center; padding: 20px; text-decoration: none; color: inherit; transition: transform 0.2s;">
+                <div style="width: 50px; height: 50px; background-color: #FF5722; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; color: white; font-size: 24px;">M</div>
+                <div style="text-align: left;">
+                    <h3 style="margin: 0; color: var(--gl-blue);">Связаться через МАКС</h3>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: #888;">Корпоративный мессенджер</p>
+                </div>
+            </a>
+
+            <a href="https://vk.com/username_metodista" target="_blank" class="lesson-card" style="display: flex; align-items: center; padding: 20px; text-decoration: none; color: inherit; transition: transform 0.2s;">
+                <div style="width: 50px; height: 50px; background-color: #0077FF; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; color: white; font-size: 24px;">VK</div>
+                <div style="text-align: left;">
+                    <h3 style="margin: 0; color: var(--gl-blue);">Связаться через VK</h3>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: #888;">Группа поддержки и новости</p>
+                </div>
+            </a>
+
+        </div>
+
+        <a href="{% url 'lesson_list' %}" style="display: inline-block; margin-top: 40px; color: var(--gl-blue); text-decoration: none;">← Вернуться в личный кабинет</a>
+    </div>
+{% endblock %}

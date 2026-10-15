@@ -1,0 +1,30 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <div class="lesson-card">
+        <h1>Тестирование: {{ lesson.title }}</h1>
+
+        {% if error %}
+            <p style="color: red; font-weight: bold;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for question in questions %}
+                <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <h3>{{ forloop.counter }}. {{ question.text }}</h3>
+
+                    {% for answer in question.answers.all %}
+                        <label style="display: block; margin: 5px 0; cursor: pointer;">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required>
+                            {{ answer.text }}
+                        </label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn" style="border: none; cursor: pointer;">Проверить ответы</button>
+        </form>
+    </div>
+{% endblock %}

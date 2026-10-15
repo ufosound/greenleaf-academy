@@ -1,0 +1,21 @@
+{% extends "courses/base.html" %}
+{% block content %}
+    <div class="lesson-card" style="max-width: 400px; margin: 50px auto; text-align: center;">
+        <h2 style="color: var(--gl-green);">Регистрация партнера</h2>
+        
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="Ваше Имя" required style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px;">
+            <input type="text" name="username" placeholder="Придумайте Логин" required style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px;">
+            <input type="password" name="password" placeholder="Придумайте Пароль" required style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px;">
+            
+            <button type="submit" class="btn" style="width: 100%;">Зарегистрироваться</button>
+        </form>
+        
+        <p style="margin-top: 20px;">Уже есть аккаунт? <a href="{% url 'login' %}" style="color: var(--gl-blue);">Войти</a></p>
+    </div>
+{% endblock %}

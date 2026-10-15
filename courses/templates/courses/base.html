@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Академия Greenleaf</title>
+    
+    <!-- Настройки для PWA (Приложение) -->
+    <meta name="theme-color" content="#4ab034">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="/static/icon-192.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gl-green: #4ab034;
+            --gl-blue: #004E7A;
+            --gl-text: #4F4F4F;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--gl-text);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px; /* Чуть меньше для мобильных */
+            display: block;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-menu a {
+            color: var(--gl-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .dashboard-link {
+            background-color: var(--gl-green);
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box; /* Важно для адаптивности */
+        }
+
+        h1, h2, h3 { color: var(--gl-text); margin-top: 0; }
+
+        .btn {
+            background-color: var(--gl-green);
+            color: white !important;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(74, 176, 52, 0.3);
+            text-align: center;
+        }
+
+        .lesson-card {
+            background: var(--card-bg);
+            padding: 20px; /* Меньше отступы для мобильных */
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #eef0f2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 14px;
+        }
+        
+        footer a { color: var(--gl-green); text-decoration: none; }
+
+        /* Адаптивность для телефонов */
+        @media (max-width: 600px) {
+            .header-container { flex-direction: column; gap: 10px; }
+            h1 { font-size: 24px; }
+            .btn { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="https://greenleaf-global.com/static/img/logo.svg" alt="Greenleaf Logo">
+            </a>
+            
+            {% if user.is_authenticated %}
+            <div class="user-menu">
+                <span>{{ user.first_name|default:user.username }}</span>
+                <a href="{% url 'lesson_list' %}" class="dashboard-link">Кабинет</a>
+                <a href="{% url 'logout_view' %}">Выйти</a>
+            </div>
+            {% else %}
+            <div class="user-menu">
+                <a href="{% url 'login' %}">Вход</a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>Разработка: Плющев Кирилл Александрович (UFOCODER)</p>
+        <p>&copy; 2026 Специально для Академии Greenleaf</p>
+    </footer>
+</body>
+</html>

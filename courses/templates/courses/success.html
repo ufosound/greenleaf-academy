@@ -1,0 +1,9 @@
+{% extends "courses/base.html" %}
+{% block content %}
+    <div class="lesson-card" style="text-align: center;">
+        <h1 style="color: var(--gl-green);">Поздравляем! 🎉</h1>
+        <p>Вы успешно прошли тест по уроку "{{ lesson.title }}".</p>
+        <p>Ваш результат: {{ score }} из {{ total }}</p>
+        <a href="{% url 'lesson_list' %}" class="btn">Вернуться к списку уроков</a>
+    </div>
+{% endblock %}

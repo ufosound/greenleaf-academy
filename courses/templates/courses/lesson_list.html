@@ -1,0 +1,67 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <!-- Карточка пользователя и Статистика -->
+    <div class="lesson-card" style="background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%); border-left: 5px solid var(--gl-green);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div>
+                <h2 style="margin-bottom: 5px;">Привет, {{ request.user.first_name|default:request.user.username }}!</h2>
+                
+                <!-- Умный статус -->
+                <p style="color: #666; margin: 0;">
+                    Статус: 
+                    {% if progress_percent == 100 %}
+                        <strong style="color: var(--gl-green);">🏆 Партнер Greenleaf</strong>
+                    {% else %}
+                        <strong>Новичок</strong>
+                    {% endif %}
+                </p>
+            </div>
+            <div style="text-align: right; min-width: 200px;">
+                <span style="font-size: 24px; font-weight: bold; color: var(--gl-green);">{{ progress_percent }}%</span>
+                <p style="margin: 0; font-size: 14px; color: #888;">Курса пройдено</p>
+            </div>
+        </div>
+        
+        <div style="background-color: #e0e0e0; border-radius: 10px; height: 10px; margin-top: 20px; overflow: hidden;">
+            <div style="background-color: var(--gl-green); width: {{ progress_percent }}%; height: 100%; transition: width 0.5s ease;"></div>
+        </div>
+        <p style="font-size: 12px; color: #999; margin-top: 5px;">Пройдено {{ completed_count }} из {{ total_lessons }} уроков</p>
+    </div>
+
+    <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+        <a href="{% url 'final_exam' %}" class="btn" style="background-color: #FFD700; color: #333 !important;">🏆 Мой Сертификат</a>
+        <!-- Ссылка на страницу контактов -->
+        <a href="{% url 'contact_methodist' %}" class="btn" style="background-color: #25D366;">💬 Связаться с методистом</a>
+    </div>
+
+    <h2 style="border-bottom: 2px solid var(--gl-green); padding-bottom: 10px; display: inline-block;">Программа обучения</h2>
+    
+    {% for item in lessons_data %}
+        <div class="lesson-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>{{ item.lesson.order }}. {{ item.lesson.title }}</h3>
+                
+                {% if item.is_completed %}
+                    <span style="background: #e8f5e9; color: var(--gl-green); padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">✅ ЗАВЕРШЕНО</span>
+                {% elif item.is_accessible %}
+                    <span style="background: #e3f2fd; color: var(--gl-blue); padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">🔓 ДОСТУПЕН</span>
+                {% else %}
+                    <span style="background: #eee; color: #999; padding: 5px 10px; border-radius: 15px; font-size: 12px;">🔒 ЗАБЛОКИРОВАН</span>
+                {% endif %}
+            </div>
+            
+            <p style="color: #666;">{{ item.lesson.description|truncatewords:20 }}</p>
+            
+            {% if item.is_completed %}
+                <a href="{% url 'take_quiz' item.lesson.id %}" class="btn" style="background-color: #6c757d; font-size: 14px; padding: 8px 16px;">Повторить тест</a>
+            {% elif item.is_accessible %}
+                <a href="{% url 'lesson_detail' item.lesson.id %}" class="btn" style="font-size: 14px; padding: 8px 16px;">Начать урок</a>
+            {% else %}
+                <button class="btn" disabled style="background-color: #ccc; cursor: not-allowed; font-size: 14px; padding: 8px 16px;">Сначала пройдите предыдущие</button>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Уроков пока нет.</p>
+    {% endfor %}
+{% endblock %}

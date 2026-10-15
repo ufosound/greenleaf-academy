@@ -1,0 +1,60 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <div style="text-align: center; margin-bottom: 30px;">
+        {% if is_finished %}
+            <h1 style="color: var(--gl-green);">🎉 Курс успешно завершен!</h1>
+            <p>Вы можете скачать или распечатать свой сертификат ниже.</p>
+        {% else %}
+            <h1>Курс еще не завершен</h1>
+            <p>Вы прошли {{ completed }} из {{ total }} уроков.</p>
+            <a href="{% url 'lesson_list' %}" class="btn">Вернуться к урокам</a>
+        {% endif %}
+    </div>
+
+    {% if is_finished %}
+    <!-- Сам сертификат -->
+    <div id="certificate-area" style="background: #fff; width: 800px; height: 560px; margin: 0 auto; padding: 40px; border: 10px solid #D4AF37; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.2); font-family: 'Times New Roman', serif; text-align: center; color: #333;">
+        
+        <!-- Внутренняя рамка -->
+        <div style="border: 2px solid #D4AF37; height: 100%; padding: 20px; position: relative;">
+            
+            <img src="https://greenleaf-global.com/static/img/logo.svg" alt="Logo" style="height: 60px; margin-top: 20px;">
+            
+            <h2 style="font-size: 36px; color: var(--gl-green); margin: 20px 0; text-transform: uppercase; letter-spacing: 2px;">Сертификат Партнера</h2>
+            
+            <p style="font-size: 18px; font-style: italic;">Настоящим подтверждается, что</p>
+            
+            <h1 style="font-size: 32px; margin: 10px 0; border-bottom: 1px solid #ccc; display: inline-block; padding: 0 20px;">
+                {{ request.user.first_name|default:request.user.username }}
+            </h1>
+            
+            <p style="font-size: 18px; margin-top: 20px;">
+                успешно прошел полный курс обучения в <strong>Академии Greenleaf</strong><br>
+                и продемонстрировал высокие знания эко-продукции.
+            </p>
+
+            <div style="margin-top: 50px; display: flex; justify-content: space-between; padding: 0 60px;">
+                <div style="text-align: center;">
+                    <p style="border-top: 1px solid #333; padding-top: 5px; width: 150px;">Дата выдачи</p>
+                    <p style="font-weight: bold;">{% now "d.m.Y" %}</p>
+                </div>
+                
+                <!-- Имитация печати -->
+                <div style="width: 100px; height: 100px; border: 3px double var(--gl-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gl-green); font-weight: bold; transform: rotate(-15deg); opacity: 0.8; font-size: 12px; text-align: center; line-height: 1.2;">
+                    GREENLEAF<br>OFFICIAL<br>CERTIFIED
+                </div>
+
+                <div style="text-align: center;">
+                    <p style="border-top: 1px solid #333; padding-top: 5px; width: 150px;">Подпись директора</p>
+                    <p style="font-weight: bold; font-family: 'Brush Script MT', cursive; font-size: 20px;">Greenleaf CEO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()" class="btn">🖨️ Распечатать / Сохранить в PDF</button>
+    </div>
+    {% endif %}
+{% endblock %}

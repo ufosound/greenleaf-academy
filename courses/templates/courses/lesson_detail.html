@@ -1,0 +1,31 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <div class="lesson-card">
+        <h1>{{ lesson.order }}. {{ lesson.title }}</h1>
+
+        {% if lesson.video_url %}
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-bottom: 20px;">
+            <iframe
+                src="{{ lesson.video_url }}"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
+                allowfullscreen>
+            </iframe>
+        </div>
+        {% endif %}
+
+        <div style="font-size: 18px;">
+            {{ lesson.description|linebreaks }}
+        </div>
+
+        {% if lesson.file %}
+        <div style="margin-top: 20px;">
+            <a href="{{ lesson.file.url }}" target="_blank" class="btn" style="background-color: var(--gl-blue);">📄 Скачать материалы урока (PDF)</a>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'take_quiz' lesson.id %}" class="btn">Перейти к тестированию</a>
+    </div>
+
+    <a href="{% url 'lesson_list' %}" style="color: var(--gl-blue); text-decoration: none; margin-top: 20px; display: inline-block;">← Вернуться к списку уроков</a>
+{% endblock %}

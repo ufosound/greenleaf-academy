@@ -1,0 +1,20 @@
+# База данных
+db.sqlite3
+
+# Виртуальное окружение
+venv/
+env/
+
+# Системные файлы Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE и ОС
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Медиа файлы (чтобы не грузить большие видео/картинки на гит)
+media/

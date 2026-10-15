@@ -1,0 +1,26 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+    <div class="lesson-card" style="max-width: 400px; margin: 50px auto; text-align: center;">
+        <h2 style="color: var(--gl-green);">Вход в систему</h2>
+        
+        {% if error %}
+            <p style="color: red; background: #ffe6e6; padding: 10px; border-radius: 5px;">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Ваш логин" required 
+                   style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+            
+            <input type="password" name="password" placeholder="Ваш пароль" required 
+                   style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+            
+            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Войти</button>
+        </form>
+        
+        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+            <p style="margin: 0;">Нет аккаунта? <a href="{% url 'register' %}" style="color: var(--gl-green); font-weight: bold;">Зарегистрироваться самостоятельно</a></p>
+        </div>
+    </div>
+{% endblock %}
